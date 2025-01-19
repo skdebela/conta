@@ -5,11 +5,7 @@
 function search_contact {
     echo "Search contacts"
 
-    # Check if the data file exists and is not empty
-    if [[ ! -s "$DATA_FILE" ]]; then
-        echo "No contacts found"
-        return 1
-    fi
+    check_data_file || return 1
 
     read -p "Enter search term (name, email, phone, or email): " search_term
     if [[ -z $search_term ]]; then
@@ -18,17 +14,11 @@ function search_contact {
     fi
 
     echo "Matching contacts for '$search_term':"
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    grep -i "$search_term" "$DATA_FILE" | while IFS=":" read -r name phones emails categories; do
-        echo "Name: $name"
-        echo "Phones: $phones"
-        echo "Emails: $emails"
-        echo "Categories: $categories"
-        echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    done
-
-    if ! grep -iq "$search_term" "$DATA_FILE"; then
+    matching_contacts=$(grep -i "$search_term" "$DATA_FILE")
+    if [[ -z "$matching_contacts" ]]; then
         echo "No matching contacts found."
+        return 1
     fi
-}
 
+    display_contacts "$matching_contacts"
+}

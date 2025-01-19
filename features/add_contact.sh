@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: validation
-
 function add_contact {
     local name phones emails categories
     echo "Add New Contact"
@@ -18,13 +16,16 @@ function add_contact {
     phones=""
     while true; do
         read -p "Enter phone number label (e.g., Mobile, Work, Home) or press enter to finish: " label
-
         if [[ -z "$label" ]]; then
             break
         fi
 
-        read -p "Enter phone number for label $label: " number
-        phones+="${label}=${number};"
+        read -p "Enter phone number for label '$label': " number
+        if validate_phone "$number"; then
+            phones+="${label}=${number};"
+        else
+            echo "Invalid phone number. Please try again."
+        fi
     done
     phones="${phones%;}"
 
@@ -35,10 +36,16 @@ function add_contact {
         if [[ -z "$label" ]]; then
             break
         fi
-        read -p "Enter email for $label: " email
-        emails+="${label}=${email};"
+
+        read -p "Enter email for '$label': " email
+        if validate_email "$email"; then
+            emails+="${label}=${email};"
+        else
+            echo "Invalid email. Please try again."
+        fi
     done
-    emails="${emails%;}"
+    emails="${emails%;}"  # Remove trailing semicolon
+
 
     # Input for categories
     read -p "Enter categories (comma-separated): " categories

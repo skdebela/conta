@@ -3,10 +3,7 @@
 function categorize_contacts {
     echo "Categorize contacts"
 
-    if [[ ! -s "$DATA_FILE" ]]; then
-        echo "No contacts found to categorize."
-        return 1
-    fi
+    check_data_file || return 1
 
     # Display all available categories
     echo "Existing categories in your contacts:"
@@ -20,14 +17,7 @@ function categorize_contacts {
     fi
 
     echo "Contacts under category '$category':"
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    grep -E ":[^:]*:[^:]*:.*\b${category}\b.*" "$DATA_FILE" |\
-        while IFS=":" read -r name phones emails categories; do
-            echo "Name: $name"
-            echo "Phones: $phones"
-            echo "Emails: $emails"
-            echo "Categories: $categories"
-            echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-        done
-
+    category_contacts=$(grep -E ":[^:]*:[^:]*:.*\b${category}\b.*" "$DATA_FILE")
+    display_contacts <<< "$category_contacts"
 }
+

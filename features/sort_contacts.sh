@@ -3,11 +3,7 @@
 function sort_contacts {
     echo "Sort contacts"
 
-    # Check if the data file exists and is not empty
-    if [ ! -s "$DATA_FILE" ]; then
-        echo "No contacts found"
-        return 1
-    fi
+    check_data_file || return 1
 
     echo "Sort by:"
     echo "1. Name"
@@ -25,11 +21,6 @@ function sort_contacts {
     esac
 
     # Print sorted contacts
-    printf "%-20s %-30s %-30s %-30s\n" "Name" "Phone Numbers" "Emails" "Categories"
-    echo "----------------------------------------------------------------------------------------------"
-
-    sort -t ':' -k"$sort_key" "$DATA_FILE" | while IFS=: read -r name phones emails categories; do
-        printf "%-20s %-30s %-30s %-30s\n" "$name" "$phones" "$emails" "$categories"
-    done
+    sort -t ':' -k"$sort_key" "$DATA_FILE" | display_contacts
 }
 

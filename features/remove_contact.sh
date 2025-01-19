@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# TODO: multiple match handling
 # TODO: error handling (file permission)
 
 function remove_contact {
     echo "Remove contact function"
 
     # Check if the data file exists and is not empty
-    if [[ ! -s "$DATA_FILE" ]]; then
-        echo "No contacts found."
-        return 1
-    fi
+    check_data_file || return 1
 
     read -p "Enter the name or phone number of contact to remove: " search_term
     if [[ -z "$search_term" ]]; then
@@ -19,16 +15,22 @@ function remove_contact {
     fi
 
     # Search the matching contacts and display
-    contact_to_remove=$(grep -i "$search_term" "$DATA_FILE")
-    if [[ -z "$contact_to_remove" ]]; then
+    matches=$(grep -i "$search_term" "$DATA_FILE")
+    if [[ -z "$matches" ]]; then
         echo "No matching contact found."
         return 1
     fi
 
-    echo "Found the following contact(s) to remove:"
-    echo "$contact_to_remove"
-    echo "Are you sure you want to delete this contact? (y/n)"
-    read -p "Choice: " confirm_delete
+    echo "Found the following matching contact(s):"
+    display_contacts_with_id <<<  "$matches"
+
+    read -p "Enter the number of contact you want to remove: " choice
+
+    # Display contact to be deleted and ask for confrimation
+    IFS=$'\n' read -rd '' -a contact_array <<< "$matches"
+    selected_contact="${contact_array[$((choice - 1))]}"
+    display_contacts <<< "$selected_contact"
+    read -p "Are you sure you want to delete this contact? (y/n)" confirm_delete
 
     if [[ "$confirm_delete" != "y" ]]; then
         echo "Contact removal canceled."
@@ -36,7 +38,7 @@ function remove_contact {
     fi
 
     # Remove the contact by filtering it out
-    grep -i -v "$search_term" "$DATA_FILE" > "$DATA_FILE.tmp" 
+    grep -vF "$selected_contact" "$DATA_FILE" > "$DATA_FILE.tmp" 
     mv "$DATA_FILE.tmp" "$DATA_FILE"
 
     echo "Contact has been removed."
