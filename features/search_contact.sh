@@ -20,5 +20,20 @@ function search_contact {
         return 1
     fi
 
-    display_contacts "$matching_contacts"
+    display_contacts <<< "$matching_contacts"
+}
+
+function search_contact_with_args {
+    query="$1"
+    if [[ -z "$query" ]]; then
+        echo "Search term cannot be empty."
+        return 1
+    fi
+
+    matching_contacts=$(grep -i "$query" "$DATA_FILE")
+    if [[ -n "$matching_contacts" ]]; then
+        display_contacts <<< "$matching_contacts"
+    else
+        echo "No matching contact found."
+    fi
 }

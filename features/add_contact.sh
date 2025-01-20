@@ -56,3 +56,18 @@ function add_contact {
     echo "${name}:${phones}:${emails}:${formatted_categories}" >> "$DATA_FILE"
     echo "Contact added successfully!"
 }
+
+function add_contact_with_args {
+    name="$1"
+    phones=$(echo "$2" | tr ',' ';')
+    emails=$(echo "$3" | tr ',' ';')
+    categories=$(echo "$4" | tr ',' ';')
+
+    if [[ -z "$name" ]]; then
+        echo "Name is required for adding a contact."
+        return 1
+    fi
+
+    echo "${name}:${phones}:${emails}:${categories}" >> "$DATA_FILE"
+    echo "Contact added successfully!"
+}

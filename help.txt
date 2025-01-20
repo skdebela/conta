@@ -1,0 +1,24 @@
+Conta Contact Manager Usage Manual
+
+Usage:
+  ./main.sh [options]
+
+Options:
+  -A, --add          Add a new contact
+                     Example: ./main.sh -A -n "Manuel" -p "Mobile=012345678,Work=198765434" -e "Personal=email@host.domain" -c "Friend,Family"
+                     
+  -C, --categorize   Categorize contacts by a specific category
+                     Example: ./main.sh -C "Friends"
+
+  -S, --search       Search for a contact by name, phone, or email
+                     Example: ./main.sh -S "Manuel"
+  
+  -V, --view         View all contacts
+                     Example: ./main.sh -V
+                     
+
+  -n, --name         Name of the contact (used with -A)
+  -p, --phones       Phone numbers (used with -A)
+  -e, --emails       Emails (used with -A)
+  -c, --categories   Categories (used with -A)
+  -h, --help         Display this usage manual
