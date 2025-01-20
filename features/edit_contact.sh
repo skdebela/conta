@@ -25,7 +25,7 @@ function edit_contact {
     fi
 
     echo "Found the following matching contacts:"
-    display_contacts_with_id <<< "$matches"
+    display_contacts_with_id "$matches"
 
     read -p "Enter the number of the contact you want to edit: " choice
 

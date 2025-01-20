@@ -22,7 +22,7 @@ function remove_contact {
     fi
 
     echo "Found the following matching contact(s):"
-    display_contacts_with_id <<<  "$matches"
+    display_contacts_with_id "$matches"
 
     read -p "Enter the number of contact you want to remove: " choice
 

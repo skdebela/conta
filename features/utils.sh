@@ -18,16 +18,18 @@ function display_contacts() {
 }
 
 function display_contacts_with_id() {
-    # Display multiple contacts with prefix number for choice
-    IFS=$'\n' read -rd '' -a contacts_array <<<"$matches"
+    # Display multiple contacts with a prefix number for selection
+    local matches=$1
 
     printf "%-5s %-20s %-30s %-30s %-30s\n" "ID" "Name" "Phone Numbers" "Emails" "Categories"
     echo "----------------------------------------------------------------------------------------------"
-    i=1
-    while IFS=":" read -r name phones emails categories; do
+
+    local i=1
+    while IFS= read -r line; do
+        IFS=":" read -r name phones emails categories <<<"$line"
         printf "%-5s %-20s %-30s %-30s %-30s\n" "$i" "$name" "$phones" "$emails" "$categories"
-        i=$(($i+1))
-    done
+        i=$((i+1))
+    done <<< "$matches"
 }
 
 function validate_phone() {
