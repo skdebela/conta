@@ -22,12 +22,17 @@ function display_contact() {
 
 function display_contacts() {
     # Display multiple contacts
-    printf "%-20s %-30s %-30s %-30s\n" "Name" "Phone Numbers" "Emails" "Categories"
-    echo "----------------------------------------------------------------------------------------------"
-    while IFS=":" read -r name phones emails categories; do
-        printf "%-20s %-30s %-30s %-30s\n" "$name" "$phones" "$emails" "$categories"
-    done | less
+    {
+        printf "%-20s %-30s %-30s %-30s\n" "Name" "Phone Numbers" "Emails" "Categories"
+        echo "----------------------------------------------------------------------------------------------"
+        while IFS=":" read -r name phones emails categories; do
+            if [[ -n "$name" ]]; then
+                printf "%-20s %-30s %-30s %-30s\n" "$name" "$phones" "$emails" "$categories"
+            fi
+        done < "$DATA_FILE"
+    } | less
 }
+
 
 function display_contacts_with_id() {
     # Display multiple contacts with a prefix number for selection

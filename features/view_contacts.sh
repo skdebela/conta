@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: pagination, with `less` for large file
-
 function view_contacts {
     echo "View All Contacts"
 
