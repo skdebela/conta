@@ -29,7 +29,7 @@ function remove_contact {
     # Display contact to be deleted and ask for confrimation
     IFS=$'\n' read -rd '' -a contact_array <<< "$matches"
     selected_contact="${contact_array[$((choice - 1))]}"
-    display_contacts <<< "$selected_contact"
+    display_contact "$selected_contact"
     read -p "Are you sure you want to delete this contact? (y/n)" confirm_delete
 
     if [[ "$confirm_delete" != "y" ]]; then

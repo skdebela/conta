@@ -32,7 +32,7 @@ function edit_contact {
     IFS=$'\n' read -rd '' -a contact_array <<<"$matches"
     if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= ${#contact_array[@]} )); then
         selected_contact="${contact_array[$((choice - 1))]}"
-        display_contacts <<< "$selected_contact"
+        display_contact "$selected_contact"
 
         read -p "Do you want to edit this contact? (y/n): " confirm_edit
         if [[ "$confirm_edit" != "y" ]]; then

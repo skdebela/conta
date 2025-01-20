@@ -8,6 +8,18 @@ function check_data_file() {
     fi
 }
 
+function display_contact() {
+    # Display a single contact before confirmation
+    local contact=$1
+    IFS=":" read -r name phones emails categories <<<"$contact"
+
+    printf "\n%-20s : %s\n" "Name" "$name"
+    printf "%-20s : %s\n" "Phone Numbers" "$phones"
+    printf "%-20s : %s\n" "Emails" "$emails"
+    printf "%-20s : %s\n" "Categories" "$categories"
+    echo
+}
+
 function display_contacts() {
     # Display multiple contacts
     printf "%-20s %-30s %-30s %-30s\n" "Name" "Phone Numbers" "Emails" "Categories"
