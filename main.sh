@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DATA_FILE="./data/contacts.txt"
+INSTALL_DIR=$(dirname "$(realpath "$0")")
+DATA_FILE="${CONTA_DATA_HOME:-$HOME/.local/share}/conta/contacts.txt"
+CONFIG_DIR="${CONTA_CONFIG_DIR:-$HOME/.config/conta}"
 
 # Create data file if it doesn't exist
 if [ ! -f "$DATA_FILE" ]; then
@@ -9,7 +11,7 @@ if [ ! -f "$DATA_FILE" ]; then
 fi
 
 # Load feature scripts
-for script in "./features"/*.sh; do
+for script in "$INSTALL_DIR/features"/*.sh; do
     source "$script"
 done
 
@@ -52,7 +54,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         -h | --help)
-            cat help.txt
+            cat "$CONFIG_DIR/USAGE.txt"
             exit 0
             ;;
         *)

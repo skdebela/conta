@@ -1,4 +1,4 @@
-# Contact Manager Project
+# Conta - simple UNIX shell contact manager
 
 A modular contact manager application built using UNIX shell scripting.
 The project allows users to manage contacts directly from the terminal by running individual scripts, with future plans for packanging and installation.
@@ -24,12 +24,8 @@ The project allows users to manage contacts directly from the terminal by runnin
 ├── features                # Directory with modular feature scripts
 │   ├── add_contact.sh
 │   ├── categorize_contacts.sh
-│   ├── edit_contact.sh
-│   ├── import_export.sh
-│   ├── remove_contact.sh
-│   ├── search_contact.sh
-│   ├── sort_contacts.sh
-│   └── view_contacts.sh
+│   └── ...
+├── install.sh              # Installation script
 ├── main.sh                 # Entry point script to run the contact manager
 └── README.md
 ```
@@ -43,16 +39,17 @@ The project allows users to manage contacts directly from the terminal by runnin
     cd conta
     ```
 
-1. Make all scripts executable:
+1. Make install script executable and run it:
 
     ```bash
-    chmod +x main.sh features/*.sh
+    chmod +x ./install.sh
+    ./install.sh
     ```
 
 1. Run the application:
 
     ```bash
-    ./main.sh
+    conta -h
     ```
 
 1. During development, you can also run individual feature scripts directly:
