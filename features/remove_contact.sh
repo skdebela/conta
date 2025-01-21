@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: error handling (file permission)
-
 function remove_contact {
     local query
     echo "Remove contact function"
@@ -40,6 +38,13 @@ function remove_contact {
 
     # Remove the contact by filtering it out
     grep -vF "$selected_contact" "$DATA_FILE" > "$DATA_FILE.tmp" 
+
+    # File permission error handling
+    if [ ! -w "$DATA_FILE" ]; then
+        echo "Error: No write permission for the data file."
+        return 1
+    fi
+
     mv "$DATA_FILE.tmp" "$DATA_FILE"
 
     echo "Contact has been removed."
