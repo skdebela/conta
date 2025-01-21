@@ -18,7 +18,12 @@ function categorize_contacts {
     fi
 
     echo "Contacts under category '$category':"
-    local category_contacts=$(grep -E ":[^:]*:[^:]*:.*\b${category}\b.*" "$DATA_FILE")
+    local category_contacts=$(
+        awk -F ':' -v category="$category" '{
+            split($4, cat, ";")
+            for (i in cat) if (cat[i] == category) print $0
+        }' "$DATA_FILE"
+    )
     display_contacts <<< "$category_contacts"
 }
 
@@ -29,7 +34,12 @@ function categorize_contacts_with_args {
         return 1
     fi
 
-    local category_contacts=$(grep -E ":[^:]*:[^:]*:.*\b${category}\b.*" "$DATA_FILE")
+    local category_contacts=$(
+        awk -F ':' -v category="$category" '{
+            split($4, cat, ";")
+            for (i in cat) if (cat[i] == category) print $0
+        }' "$DATA_FILE"
+    )
     if [[ -n "$category_contacts" ]]; then
         display_contacts <<< "$category_contacts"
     else
