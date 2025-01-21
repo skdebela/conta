@@ -7,10 +7,7 @@ function edit_contact {
     echo "Edit Contact"
 
     # Check if the data file exists and is not empty
-    if [ ! -s "$DATA_FILE" ]; then
-        echo "No contacts found."
-        return 1
-    fi
+    check_data_file || return 1
 
     read -p "Enter the name or phone number of the contact to edit: " query
     if [[ -z "$query" ]]; then
