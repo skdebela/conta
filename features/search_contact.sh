@@ -3,18 +3,19 @@
 # TODO: highlight matching portions in output for better visibility
 
 function search_contact {
+    local query
     echo "Search contacts"
 
     check_data_file || return 1
 
-    read -p "Enter search term (name, email, phone, or email): " search_term
-    if [[ -z $search_term ]]; then
+    read -p "Enter search query (name, email, phone, or email): " query
+    if [[ -z $query ]]; then
         echo "Search term cannot be empty. Please try agin."
         return 1
     fi
 
-    echo "Matching contacts for '$search_term':"
-    matching_contacts=$(grep -i "$search_term" "$DATA_FILE")
+    echo "Matching contacts for '$query':"
+    local matching_contacts=$(grep -i "$query" "$DATA_FILE")
     if [[ -z "$matching_contacts" ]]; then
         echo "No matching contacts found."
         return 1
@@ -24,13 +25,13 @@ function search_contact {
 }
 
 function search_contact_with_args {
-    query="$1"
+    local query="$1"
     if [[ -z "$query" ]]; then
         echo "Search term cannot be empty."
         return 1
     fi
 
-    matching_contacts=$(grep -i "$query" "$DATA_FILE")
+    local matching_contacts=$(grep -i "$query" "$DATA_FILE")
     if [[ -n "$matching_contacts" ]]; then
         display_contacts <<< "$matching_contacts"
     else

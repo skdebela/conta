@@ -3,19 +3,20 @@
 # TODO: error handling (file permission)
 
 function remove_contact {
+    local query
     echo "Remove contact function"
 
     # Check if the data file exists and is not empty
     check_data_file || return 1
 
-    read -p "Enter the name or phone number of contact to remove: " search_term
-    if [[ -z "$search_term" ]]; then
-        echo "Search term cannot be empty. Please try again."
+    read -p "Enter the name or phone number of contact to remove: " query
+    if [[ -z "$query" ]]; then
+        echo "Search query cannot be empty. Please try again."
         return 1
     fi
 
     # Search the matching contacts and display
-    matches=$(grep -i "$search_term" "$DATA_FILE")
+    local matches=$(grep -i "$query" "$DATA_FILE")
     if [[ -z "$matches" ]]; then
         echo "No matching contact found."
         return 1
@@ -28,7 +29,7 @@ function remove_contact {
 
     # Display contact to be deleted and ask for confrimation
     IFS=$'\n' read -rd '' -a contact_array <<< "$matches"
-    selected_contact="${contact_array[$((choice - 1))]}"
+    local selected_contact="${contact_array[$((choice - 1))]}"
     display_contact "$selected_contact"
     read -p "Are you sure you want to delete this contact? (y/n)" confirm_delete
 

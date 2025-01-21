@@ -13,7 +13,6 @@ function add_contact {
     fi
 
     # Input for phone numbers
-    phones=""
     while true; do
         read -p "Enter phone number label (e.g., Mobile, Work, Home) or press enter to finish: " label
         if [[ -z "$label" ]]; then
@@ -30,7 +29,6 @@ function add_contact {
     phones="${phones%;}"
 
     # Input for emails
-    emails=""
     while true; do
         read -p "Enter email label (e.g., Personal, Work) or press enter to finish: " label
         if [[ -z "$label" ]]; then
@@ -44,7 +42,7 @@ function add_contact {
             echo "Invalid email. Please try again."
         fi
     done
-    emails="${emails%;}"  # Remove trailing semicolon
+    emails="${emails%;}"
 
 
     # Input for categories
@@ -58,6 +56,7 @@ function add_contact {
 }
 
 function add_contact_with_args {
+    local name phones emails categories
     name="$1"
     phones=$(echo "$2" | tr ',' ';')
     emails=$(echo "$3" | tr ',' ';')

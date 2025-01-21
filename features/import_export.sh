@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function import_contacts {
+    local import_file name phones emails categories
     echo "Import contacts from CSV"
 
     read -p "Enter CSV file path to import from: " import_file
@@ -22,6 +23,7 @@ function import_contacts {
 }
 
 function export_contacts  {
+    local export_file
     echo "Export contacts to CSV"
 
     read -p "Enter the CSV file path to export to: " export_file
@@ -38,6 +40,8 @@ function export_contacts  {
 }
 
 function import_export {
+    local choice
+
     echo "Import/Export Contacts"
     echo "1. Import contacts"
     echo "2. Export contacts"

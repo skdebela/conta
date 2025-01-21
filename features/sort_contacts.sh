@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function sort_contacts {
+    local sort_option sort_key
     echo "Sort contacts"
 
     check_data_file || return 1
