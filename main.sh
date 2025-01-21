@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INSTALL_DIR=$(dirname "$(realpath "$0")")
-DATA_FILE="${CONTA_DATA_HOME:-$HOME/.local/share}/conta/contacts.txt"
+DATA_FILE="${CONTA_DATA_HOME:-$HOME/.local/share}/conta/data/contacts.txt"
 CONFIG_DIR="${CONTA_CONFIG_DIR:-$HOME/.config/conta}"
 
 # Create data file if it doesn't exist
