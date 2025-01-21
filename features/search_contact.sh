@@ -26,10 +26,6 @@ function search_contact {
 
 function search_contact_with_args {
     local query="$1"
-    if [[ -z "$query" ]]; then
-        echo "Search term cannot be empty."
-        return 1
-    fi
 
     local matching_contacts=$(grep -i "$query" "$DATA_FILE")
     if [[ -n "$matching_contacts" ]]; then

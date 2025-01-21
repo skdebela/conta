@@ -29,10 +29,6 @@ function categorize_contacts {
 
 function categorize_contacts_with_args {
     local category="$1"
-    if [[ -z "$category" ]]; then
-        echo "Category is required for categorization."
-        return 1
-    fi
 
     local category_contacts=$(
         awk -F ':' -v category="$category" '{

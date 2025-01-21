@@ -26,11 +26,19 @@ while [[ $# -gt 0 ]]; do
         -C|--categorize)
             action="categorize"
             category="$2"
+            if [[ -z "$category" ]]; then
+                echo "Category is required to categorize contacts."
+                exit 1
+            fi
             shift 2
             ;;
         -S|--search)
             action="search"
             query="$2"
+            if [[ -z "$query" ]]; then
+                echo "Search query is required to search through contacts."
+                exit 1
+            fi
             shift 2
             ;;
         -V|--view)
