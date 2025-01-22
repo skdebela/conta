@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO: avoid redundunt contact by checking name befory saving
+# TODO: escaping or restricting delimiter characters from inputs
+# TODO: validation in non-interactive mode (add_contact_with_args())
+
 function add_contact {
     local name phones emails categories
     echo "Add New Contact"
