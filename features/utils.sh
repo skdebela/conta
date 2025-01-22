@@ -31,7 +31,7 @@ function display_contacts() {
             if [[ -n "$name" ]]; then
                 printf "%-20s %-30s %-30s %-30s\n" "$name" "$phones" "$emails" "$categories"
             fi
-        done < "$DATA_FILE"
+        done
     } | less
 }
 
