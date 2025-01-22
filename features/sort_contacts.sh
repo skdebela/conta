@@ -11,7 +11,7 @@ function sort_contacts {
     echo "2. Phone Numbers"
     echo "3. Emails"
     echo "4. Categories"
-    read -p "Choose an option (1-3): " sort_option
+    read -p "Choose an option (1-4): " sort_option
 
     case $sort_option in
         1) sort_key=1 ;;
