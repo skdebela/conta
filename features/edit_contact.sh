@@ -48,11 +48,11 @@ function edit_contact {
         local new_name=${new_name:-$old_name}
     
         while true; do
-            read -p "Enter new phone numbers (comma separated) (or press Enter to keep current): " new_phones
+            read -p "Enter new phone numbers (semi-colon separated) (or press Enter to keep current): " new_phones
             local new_phones=${new_phones:-$old_phones}
             # Validate each phone entry
             valid=true
-            IFS=',' read -ra phones <<< "$new_phones"
+            IFS=';' read -ra phones <<< "$new_phones"
             for phone in "${phones[@]}"; do
                 if ! validate_phone "${phone#*=}"; then
                     echo "Invalid phone number: $phone"
@@ -64,11 +64,11 @@ function edit_contact {
         done
     
         while true; do
-            read -p "Enter new emails (comma separated) (or press Enter to keep current): " new_emails
+            read -p "Enter new emails (semi-colon separated) (or press Enter to keep current): " new_emails
             local new_emails=${new_emails:-$old_emails}
             # Validate each email entry
             valid=true
-            IFS=',' read -ra emails <<< "$new_emails"
+            IFS=';' read -ra emails <<< "$new_emails"
             for email in "${emails[@]}"; do
                 if ! validate_email "${email#*=}"; then
                     echo "Invalid email: $email"
@@ -79,14 +79,9 @@ function edit_contact {
             [[ $valid == true ]] && break
         done
         
-        read -p "Enter new categories (comma separated) (or press Enter to keep the current categories): " new_categories
+        read -p "Enter new categories (semi-colon separated) (or press Enter to keep the current categories): " new_categories
         local new_categories=${new_categories:-old_categories}
     
-        # Format to local storage format before writing
-        new_phones=$(echo "$new_phones" | tr ',' ';')
-        new_emails=$(echo "$new_emails" | tr ',' ';')
-        new_categories=$(echo "$new_categories" | tr ',' ';')
-
         # Prepare the updated contact string
         local updated_contact="$new_name:$new_phones:$new_emails:$new_categories"
 
